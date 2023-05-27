@@ -1,0 +1,16 @@
+{
+  "files": [
+    {
+      "dest": "~/.config/dk/dkrc",
+      "src": "*/dkrc"
+    },
+    {
+      "dest": "~/.config/eww/_colors.scss",
+      "src": "*/_colors.scss"
+    }
+  ],
+  "commands": [
+    "eww reload",
+    "dkcmd restart"
+  ]
+}
