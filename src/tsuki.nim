@@ -47,6 +47,7 @@ if theme == "add":
 if not (theme in themes):
   logError("That is not a valid theme, try running 'tsuki list' to list valid themes")
 
+createDir(confDir / ".cache")
 writeFile(confDir / ".cache" / "current-theme", theme)
 
 for file in cfg.files:
