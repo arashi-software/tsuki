@@ -14,4 +14,11 @@ proc listDirs*(parentDir: string): seq[string] =
       result.add(file.path.splitPath().tail)
 
 proc logError*(error: string) =
-  stdout.styledWriteLine(fgRed, "Error:", fgWhite, " " & error)
+  stderr.styledWriteLine(fgRed, "Error:", fgWhite, " " & error)
+
+proc other*(list: seq[string], item: string): string =
+  if not list.len == 2:
+    raise newException(LibraryError, "List argument was either longer or shorter than 2 items")
+  for l in list:
+    if l != item:
+      return l

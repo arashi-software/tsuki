@@ -43,12 +43,21 @@ if theme == "add":
   writeFile(confDir / "themes.tsk", pretty(%*cfg))
   quit(0)
 
+if theme == "flip":
+  if themes.len != 2:
+    logError("You have more than the maximum of 2 themes to use automatic theme switching, please specify a theme manually.")
+    quit(1)
+  var cache = readFile(confDir / ".cache" / "current-theme")
+  if cache == "":
+    logError("No theme has been cached, please manually specify a theme before you use the flip command")
+  theme = other(themes, cache)
 
 if not (theme in themes):
   logError("That is not a valid theme, try running 'tsuki list' to list valid themes")
 
 createDir(confDir / ".cache")
 writeFile(confDir / ".cache" / "current-theme", theme)
+echo "Cached current theme!"
 
 for file in cfg.files:
   var srcFile = confDir / "themes" / file.src.replace("*", theme)
