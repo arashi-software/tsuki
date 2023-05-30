@@ -1,6 +1,6 @@
 # Package
 
-version       = "1.0.2"
+version       = "1.1.0"
 author        = "Luke"
 description   = "My theme switching script"
 license       = "GPL-3.0-or-later"
