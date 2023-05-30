@@ -1,4 +1,4 @@
-import os, terminal
+import os, terminal, strutils
 
 type
   File* = object
@@ -22,3 +22,11 @@ proc other*(list: seq[string], item: string): string =
   for l in list:
     if l != item:
       return l
+
+proc inPath*(target: string): bool =
+  var path = getEnv("PATH").split(":")
+  for dir in path:
+    for file in walkDirRec(dir):
+      if file.extractFilename() == target:
+        return true
+  return false

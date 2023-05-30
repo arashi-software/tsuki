@@ -1,4 +1,10 @@
-import lib, os, jsony, termui, strutils, json
+import lib, 
+       os, 
+       jsony, 
+       termui, 
+       strutils, 
+       json, 
+       osproc
 
 const exCfg = staticRead("../example/themes.tsk")
 
@@ -42,6 +48,16 @@ if theme == "add":
     ))
   writeFile(confDir / "themes.tsk", pretty(%*cfg))
   quit(0)
+
+when not(defined(noRofi)):
+  if theme == "rofi":
+    if not "rofi".inPath():
+      logError("Could not find rofi in your PATH")
+      quit(1)
+    var cmd = execCmdEx("tsuki list | rofi -dmenu -i -p 'Theme'")
+    if cmd.exitCode == 1:
+      quit(1)
+    theme = cmd.output.strip()
 
 if theme == "flip":
   if themes.len != 2:
