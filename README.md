@@ -69,8 +69,8 @@ tsuki rofi
 
 ## Todo
 - [x] Basic theme switching
-- [ ] Template engine
 - [x] Rofi frontend
+- [ ] Template engine
 - [ ] fzf frontened
 
 ## Leave a star if you like tsuki ⭐
