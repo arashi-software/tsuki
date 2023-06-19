@@ -67,4 +67,10 @@ Or through rofi
 tsuki rofi
 ```
 
+## Todo
+[x] Basic theme switching
+[x] Template engine
+[x] Rofi frontend
+[x] fzf frontened
+
 ## Leave a star if you like tsuki ⭐
