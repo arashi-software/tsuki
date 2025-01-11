@@ -1,0 +1,12 @@
+// see docs for specifics on syntax
+
+apps {
+  // add apps here
+}
+
+themes {
+  // define themes here
+}
+
+commands \
+  "" // define commands to run on theme change here 
