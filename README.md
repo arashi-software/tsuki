@@ -16,4 +16,4 @@ sudo cp bin/tsuki <installation-location>
 ```
 
 ## Getting Started
-Check out the wiki page for a full guide on how to get started with tsuki [here](https://github.com/arashi-software/tsuki/wiki/Getting-started)
+Check out the wiki page for a full guide on how to get started with tsuki [here](https://github.com/arashi-software/tsuki/wiki/1.-Getting-started)
