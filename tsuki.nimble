@@ -11,3 +11,7 @@ binDir = "bin"
 # Dependencies
 
 requires "nim >= 2.0.0", "therapist", "https://github.com/yummy-licorice/moustachu", "kdl"
+
+task make, "make":
+  exec "nimble build -d:release --verbose"
+  exec "sudo cp bin/tsuki /usr/local/bin"
