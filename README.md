@@ -1,5 +1,5 @@
 # Tsuki - ムーン
-### Tsuki is a fast and opinionated theme switcher for linux
+### Tsuki is a fast and simple theme switcher for linux
 ![](assets/tsuki.gif)
 
 ## Installation
