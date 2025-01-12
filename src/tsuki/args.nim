@@ -36,6 +36,12 @@ let spec* = (
   check: newCommandArg(
     @["check", "validate"], subcommand, help = "Check your tsuki setup for any errors"
   ),
+  list: newCommandArg(
+    @["list"], subcommand, help = "List your configured themes"
+  ), 
+  rofi: newCommandArg(
+    @["rofi"], subcommand, help = "Open tsuki rofi frontend"
+  ),
   backup: newCommandArg(@["backup"], backup, help = "Back up your current config files"),
   help: newHelpArg(),
   helpCmd: newHelpCommandArg("help", help = "Show help message"),

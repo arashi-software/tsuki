@@ -1,6 +1,6 @@
-import tsuki/[args, config, cli]
-import std/[os, strutils]
-import temple
+import tsuki/[args, config, cli, share]
+import std/[os, osproc, strutils, algorithm]
+import moustachu
 
 let tsukiConfigDir* = getConfigDir() / "tsuki"
 const exampleConfig* = staticRead("../examples/config.kdl")
@@ -28,6 +28,21 @@ let doc = parseKdl(readFile(tsukiConfigDir / "config.kdl"))
 let themes = doc.decodeKdl(TsukiThemes, "themes")
 let commands = doc.decodeKdl(TsukiCommands, "commands")
 let apps = doc.decodeKdl(TsukiApps, "apps")
+var theme = spec.theme.value
+
+if spec.list.seen or spec.rofi.seen:
+  var themeNames: seq[string] = @[]
+  for thm in themes.keys:
+    themeNames.add(thm)
+  themeNames.sort()
+  if spec.rofi.seen:
+    if not "rofi".inPath():
+      displayError("Could not find rofi binary in path... Quitting", true)
+    var cmd = execCmdEx("echo '$#' | rofi -dmenu -i -p 'Theme'" % [themeNames.join("\n")])
+    theme = cmd.output.strip()
+  elif spec.list.seen:
+    echo themeNames.join("\n")
+    quit 0
 
 if spec.backup.seen:
   let outdir =
@@ -61,16 +76,19 @@ if spec.check.seen:
   displaySuccess("No errors detected")
   quit 0
 
-if spec.theme.value == "":
+if theme == "":
   displayError("You must specify a valid theme name", true)
-if not themes.hasKey(spec.theme.value):
-  displayError("Theme '" & spec.theme.value & "' isn't defined in your config", true)
+if not themes.hasKey(theme):
+  displayError("Theme '" & theme & "' isn't defined in your config", true)
 
 for k, v in apps.pairs:
   let dir = v.target.replace("~", getHomeDir()).replace("//", "/")
   for file in v.templates:
     let buf = readFile(tsukiConfigDir / "apps" / k / file)
-    writeFile(dir / file, templateify(buf, themes[spec.theme.value]))
+    var c = newContext()
+    for k, v in themes[theme]:
+      c[k] = v
+    writeFile(dir / file, render(buf, c))
   displaySuccess("Changed configuration for app '$#'" % [k])
 
 for command in commands:
